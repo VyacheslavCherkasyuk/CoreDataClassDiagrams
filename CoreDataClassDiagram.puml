@@ -1,0 +1,49 @@
+@startuml Class Diagrams (https://plantuml.com/ru/class-diagram)
+class NSPersistentStoreCoordinator <<(C, blue)>> {
+    managedObjectModel: <color:red>NSManagedObjectModel</color>
+    persistentStores: [NSPersistentStore]
+    init(managedObjectModel:)
+}
+  class NSManagedObjectModel <<(C,red)>> {
+    entities: <color:violet>[NSEntityDescription]</color>
+    
+    init()
+    convenience init(contentsOf:)
+}
+class NSPersistentStoreDescription <<(C,orange)>>{
+    init(url:)
+}
+class NSPersistentContainer <<(C,yellow)>> {
+    persistentStoreDescriptions: <color:orange>[NSPersistentStoreDescription]</color>
+    managedObjectModel: <color:red>NSManagedObjectModel</color>
+    persistentStoreCoordinator: <color:blue>NSPersistentStoreCoordinator</color>
+    viewContext: <color:green>NSManagedObjectContext</color>
+    init(name:managedObjectModel:)
+}
+class NSManagedObjectContext {
+    persistentStoreCoordinator: <color: blue>NSPersistentStoreCoordinator</color>
+    parent: <color:green>NSManagedObjectContext</color>
+    init(_:)
+}
+class NSManagedObject <<(C,cyan)>>{
+    managedObjectContext: <color:green>NSManagedObjectContext</color>
+    entity: <color:violet>NSEntityDescription</color>
+    init(entity:insertInto:)
+    init(context:)
+}
+class NSEntityDescription <<(C, violet)>>{
+    managedObjectClassName: String
+    name: String
+}
+
+NSManagedObjectModel -> NSPersistentContainer::managedObjectModel
+NSManagedObjectModel -> NSPersistentStoreCoordinator
+NSPersistentStoreCoordinator --> NSPersistentContainer::persistentStoreCoordinator
+NSPersistentStoreCoordinator --> NSManagedObjectContext::persistentStoreCoordinator
+NSPersistentStoreDescription --> NSPersistentContainer::persistentStoreDescriptions
+NSPersistentContainer::viewContext <-- NSManagedObjectContext
+NSManagedObjectContext -left--> NSManagedObject::managedObjectContext 
+NSEntityDescription -down--> NSManagedObject
+NSManagedObjectModel <-- NSEntityDescription
+
+@enduml
