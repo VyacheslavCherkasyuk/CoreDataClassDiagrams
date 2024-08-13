@@ -12,12 +12,24 @@
 
 ## Сценарии
 
-1. Создать объект Managed Object Model (NSManagedObjectModel).
-2. Создать Persistent Container (NSPersistentContainer).
-3. Получить из Persistent Container объект ManagedObjectContext.
-4. Объект Managed Object Context является основным для работы.
+#### Тестирование CoreData
+
+Одна модель (NSManagedObjectModel) и разные хранилища
+
+1. Инициализировать рабочий CoreData стек.
+2. Создать объект `NSPersistentStoreDescription`
+3. Создать объект `NSPersistentContainer` из модели `NSManagedObjectModel` из рабочего CoreData стека.
+4. Добавить описание `NSPersistentStoreDescription` в ранее созданный контейнер `NSPersistentContainer`.
+5. Выполнить `loadPersistentStores` метод ранее созданного контейнера. 
+6. Настроить политику миграций контейнера `automaticallyMergesChangesFromParent`.
+
+#### Не рабочий вариант
+
+Несколько моделей (NSManagedObjectModel) и разные постоянные хранилища.
 
 ## Справочная информация
 
-1. Официальное руководство Core Data Programming Guide из архива [https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075-CH2-SW1](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075-CH2-SW1)
-2. Статья на Хабре "CoreData модель из кода". [https://habr.com/ru/articles/498708/](https://habr.com/ru/articles/498708/)
+* [Официальное руководство Core Data Programming Guide из архива](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/index.html#//apple_ref/doc/uid/TP40001075-CH2-SW1).
+* [Статья на Хабре  про создание CoreData модели из кода](https://habr.com/ru/articles/498708/).
+* [Статья с сайта Kodeco про Unit тесты](https://www.kodeco.com/11349416-unit-testing-core-data-in-ios).
+* [Создание CoreData вручную, официальная документация](https://developer.apple.com/documentation/coredata/setting_up_a_core_data_stack/setting_up_a_core_data_stack_manually).

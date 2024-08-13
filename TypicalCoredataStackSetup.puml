@@ -1,0 +1,6 @@
+@startuml  Sequence Diaramas (https://plantuml.com/ru/sequence-diagram)
+
+appInit AppInit
+database SQLite
+
+@enduml
